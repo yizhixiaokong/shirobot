@@ -1,0 +1,31 @@
+linters:
+  disable-all: true
+  presets:
+    - complexity
+  enable:
+    - typecheck
+    - goimports
+    - misspell
+    - govet
+    - revive
+    - ineffassign
+    - gosimple
+    - unused
+    - errcheck
+    - funlen
+    - gocyclo
+    - cyclop
+    - lll
+    - errorlint
+linters-settings:
+  gocyclo:
+    min-complexity: 15
+  funlen:
+    lines: 100
+  cyclop:
+    max-complexity: 15
+  misspell:
+    locale: US
+run:
+  skip-dirs: # 设置要忽略的目录
+    - skip
