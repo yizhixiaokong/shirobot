@@ -5,7 +5,9 @@ package cmd
 
 import (
 	"os"
+	"shiro_bot/internal/ws"
 
+	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +18,11 @@ var rootCmd = &cobra.Command{
 	Long:  `Do you wanna build a snowman?`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	RunE: func(cmd *cobra.Command, args []string) error {
+		wsclient := ws.NewClient()
+		wsclient.Connect()
+		return nil
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -28,7 +34,16 @@ func Execute() {
 	}
 }
 
+var envFile = "./config/.env"
+
 func init() {
+	rootCmd.PersistentFlags().StringVarP(&envFile, "env", "e", envFile, "env file (default is $HOME/config/.env)")
+
+	err := godotenv.Load(envFile)
+	if err != nil {
+		panic(err)
+	}
+
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.

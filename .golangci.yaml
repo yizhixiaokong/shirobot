@@ -17,6 +17,8 @@ linters:
     - cyclop
     - lll
     - errorlint
+    - whitespace
+    - gofmt
 linters-settings:
   gocyclo:
     min-complexity: 15
